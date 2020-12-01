@@ -29,7 +29,7 @@ var store_path = path.join(__dirname, 'hfc-key-store');
 console.log('Store path:'+store_path);
 var tx_id = null;
 
-let submitTransaction = new Promise((resolve, reject){
+let submitTransaction = new Promise((resolve, reject) => {
     Fabric_Client.newDefaultKeyValueStore({ path: store_path
     }).then((state_store) => {
         fabric_client.setStateStore(state_store);
