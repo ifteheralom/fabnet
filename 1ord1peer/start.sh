@@ -21,5 +21,4 @@ echo "*** Join peer0.org1.example.com to the channel"
 #
 docker exec -e "CORE_PEER_LOCALMSPID=Org1MSP" -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@org1.example.com/msp" peer0.org1.example.com peer channel fetch 0 genesis.block --channelID mychannel --orderer orderer0.example.com:7050
 docker exec -e "CORE_PEER_LOCALMSPID=Org1MSP" -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@org1.example.com/msp" peer0.org1.example.com peer channel join -b genesis.block
-sleep 10
 #
