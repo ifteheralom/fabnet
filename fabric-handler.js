@@ -29,7 +29,7 @@ var store_path = path.join(__dirname, 'hfc-key-store');
 console.log('Store path:'+store_path);
 var tx_id = null;
 
-function submitTransaction() {
+let submitTransaction = new Promise((resolve, reject){
     Fabric_Client.newDefaultKeyValueStore({ path: store_path
     }).then((state_store) => {
         fabric_client.setStateStore(state_store);
@@ -133,10 +133,11 @@ function submitTransaction() {
         } else {
             console.log('Transaction failed to be committed to the ledger due to ::'+results[1].event_status);
         }
+        resolve()
     }).catch((err) => {
         console.error('Failed to invoke successfully :: ' + err);
     });
-}
+});
 
 module.exports = {
     submitTransaction
