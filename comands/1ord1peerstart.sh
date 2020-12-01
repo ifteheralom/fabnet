@@ -12,7 +12,7 @@ if [ "$LANGUAGE" = "node" -o "$LANGUAGE" = "NODE" ]; then
 fi
 
 # clean the keystore
-rm -rf ../hfc-key-store
+rm -rf ./hfc-key-store
 
 echo "*** launch network; create channel and join peers to channel"
 cd ../1ord1peer
@@ -37,6 +37,8 @@ echo "*** wait for Hyperledger Fabric to finish"
 echo ${FABRIC_START_TIMEOUT}
 sleep ${FABRIC_START_TIMEOUT}
 
+# clean the keystore
+rm -rf ./hfc-key-store
 node ../enrollAdmin.js
 node ../registerUser.js
 node ../dapp.js
