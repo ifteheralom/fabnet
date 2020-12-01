@@ -40,7 +40,12 @@ const fabric_handler = require('./fabric-handler');
 
 
 app.get('/fabric', (req, res) => {
-    fabric_handler.invokeTransaction(req.body).then((result) => {
+
+    let txnData = {
+
+    }
+
+    fabric_handler.submitTransaction(txnData).then((result) => {
         console.log(result)
         res.status(200).end();
     })

@@ -62,6 +62,9 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response 
 		return s.queryAllCars(APIstub)
 	} else if function == "changeCarOwner" {
 		return s.changeCarOwner(APIstub, args)
+	} 
+	else if function == "storeCode" {
+		return s.storeCode(APIstub, args)
 	}
 
 	return shim.Error("Invalid Smart Contract function name.")
@@ -69,7 +72,7 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response 
 
 func (s *SmartContract) storeCode(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 
-	if len(args) != 5 {
+	if len(args) != 7 {
 		return shim.Error("Incorrect number of arguments. Expecting 5")
 	}
 
