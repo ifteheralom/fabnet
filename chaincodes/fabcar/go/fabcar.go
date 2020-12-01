@@ -1,3 +1,27 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+/*
+ * The sample smart contract for documentation topic:
+ * Writing Your First Blockchain Application
+ */
+
 package main
 
 /* Imports
@@ -24,15 +48,6 @@ type Car struct {
 	Model  string `json:"model"`
 	Colour string `json:"colour"`
 	Owner  string `json:"owner"`
-}
-
-type Approval struct {
-	SPentityid   string `json:"spentityid"`
-	IDPentityid  string `json:"idpentityid"`
-	SPcode string `json:"spcode"`
-	IDPcode  string `json:"idpcode"`
-	SPcheck string `json:"spcheck"`
-	IDPcheck string `json:"idpcheck"`
 }
 
 /*
@@ -62,45 +77,10 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response 
 		return s.queryAllCars(APIstub)
 	} else if function == "changeCarOwner" {
 		return s.changeCarOwner(APIstub, args)
-	} else if function == "storeCode" {
-		return s.storeCode(APIstub, args)
 	}
 
 	return shim.Error("Invalid Smart Contract function name.")
 }
-
-func (s *SmartContract) storeCode(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
-
-	if len(args) != 7 {
-		return shim.Error("Incorrect number of arguments. Expecting 5")
-	}
-
-	var approval = Approval{SPentityid: args[1], IDPentityid: args[2], SPcode: args[3], IDPcode: args[4], SPcheck: args[5], IDPcheck: args[6]}
-
-	carAsBytes, _ := json.Marshal(approval)
-	APIstub.PutState(args[0], carAsBytes)
-
-	return shim.Success(nil)
-}
-
-func (s *SmartContract) queryCode(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
-
-	if len(args) != 1 {
-		return shim.Error("Incorrect number of arguments. Expecting 1")
-	}
-
-	carAsBytes, _ := APIstub.GetState(args[0])
-	return shim.Success(carAsBytes)
-}
-
-
-
-
-
-
-
-
-
 
 func (s *SmartContract) queryCar(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 

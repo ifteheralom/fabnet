@@ -36,9 +36,3 @@ export FABRIC_START_TIMEOUT=10
 echo "*** wait for Hyperledger Fabric to finish"
 echo ${FABRIC_START_TIMEOUT}
 sleep ${FABRIC_START_TIMEOUT}
-
-# clean the keystore
-rm -rf ./hfc-key-store
-node ../enrollAdmin.js
-node ../registerUser.js
-node ../dapp.js
