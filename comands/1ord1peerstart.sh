@@ -11,8 +11,6 @@ if [ "$LANGUAGE" = "node" -o "$LANGUAGE" = "NODE" ]; then
 	CC_SRC_PATH=/opt/gopath/src/github.com/fabcar/node
 fi
 
-# clean the keystore
-rm -rf ./hfc-key-store
 
 echo "*** launch network; create channel and join peers to channel"
 cd ../1ord1peer
@@ -36,3 +34,10 @@ export FABRIC_START_TIMEOUT=10
 echo "*** wait for Hyperledger Fabric to finish"
 echo ${FABRIC_START_TIMEOUT}
 sleep ${FABRIC_START_TIMEOUT}
+
+
+# clean the keystore
+rm -rf ../hfc-key-store
+node ../enrollAdmin.js
+node ../registerUser.js
+node ../dapp.js
