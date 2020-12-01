@@ -40,6 +40,7 @@ const fabric_handler = require('./fabric-handler');
 
 
 app.get('/fabric', (req, res) => {
+    console.log('####......New fabric request');
 
     let txnData = {
 
