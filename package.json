@@ -1,0 +1,40 @@
+{
+  "name": "trnxn-monitor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.3",
+    "csvjson": "^5.1.0",
+    "dockerode": "^2.5.8",
+    "express": "^4.14.0",
+    "express-bearer-token": "^2.1.0",
+    "express-jwt": "^5.1.0",
+    "express-session": "^1.15.2",
+    "fabric-ca-client": "^1.4.0",
+    "fabric-client": "^1.4.0",
+    "fabric-network": "^1.4.0",
+    "fs-extra": "^2.0.0",
+    "grpc": "^1.10.1",
+    "hbs": "^4.0.0",
+    "jsonwebtoken": "^7.3.0",
+    "lodash": "^4.17.15",
+    "log4js": "^0.6.38",
+    "multer": "^1.4.1",
+    "socket.io": "^1.4.8",
+    "systeminformation": "^4.1.4",
+    "yargs": "^15.0.2",
+    "cbor": "^5.0.1",
+    "crypto": "^1.0.1",
+    "request": "^2.88.0",
+    "sawtooth-sdk": "^1.0.5"
+  }
+}
