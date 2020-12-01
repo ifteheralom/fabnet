@@ -137,3 +137,7 @@ function submitTransaction() {
         console.error('Failed to invoke successfully :: ' + err);
     });
 }
+
+module.exports = {
+    submitTransaction
+}
