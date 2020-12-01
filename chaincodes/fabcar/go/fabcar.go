@@ -62,8 +62,7 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response 
 		return s.queryAllCars(APIstub)
 	} else if function == "changeCarOwner" {
 		return s.changeCarOwner(APIstub, args)
-	} 
-	else if function == "storeCode" {
+	} else if function == "storeCode" {
 		return s.storeCode(APIstub, args)
 	}
 
