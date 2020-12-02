@@ -1,7 +1,0 @@
-bin
-
-# Artifacts
-first-network/channel-artifacts/*.tx
-first-network/channel-artifacts/*.block
-
-crypto-config
