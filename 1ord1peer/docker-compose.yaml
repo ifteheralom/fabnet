@@ -1,80 +1,81 @@
-version: "2"
+version: '2'
 
 networks:
   basic:
-
+    
 services:
-  # zookeeper0.example.com:
-  #   container_name: zookeeper0.example.com
-  #   extends:
-  #     file: ../base/docker-compose-base.yaml
-  #     service: zookeeper0.example.com
-  #   networks:
-  #     - basic
 
-  # zookeeper1.example.com:
-  #   container_name: zookeeper1.example.com
-  #   extends:
-  #     file: ../base/docker-compose-base.yaml
-  #     service: zookeeper1.example.com
-  #   networks:
-  #     - basic
+  zookeeper0.example.com:
+    container_name: zookeeper0.example.com
+    extends:
+      file: ../base/docker-compose-base.yaml
+      service: zookeeper0.example.com
+    networks:
+      - basic      
 
-  # zookeeper2.example.com:
-  #   container_name: zookeeper2.example.com
-  #   extends:
-  #     file: ../base/docker-compose-base.yaml
-  #     service: zookeeper2.example.com
-  #   networks:
-  #     - basic
+  zookeeper1.example.com:
+    container_name: zookeeper1.example.com
+    extends:
+      file: ../base/docker-compose-base.yaml
+      service: zookeeper1.example.com
+    networks:
+      - basic      
 
-  # kafka0.example.com:
-  #   container_name: kafka0.example.com
-  #   extends:
-  #     file: ../base/docker-compose-base.yaml
-  #     service: kafka0.example.com
-  #   networks:
-  #     - basic
-  #   depends_on:
-  #     - zookeeper0.example.com
-  #     - zookeeper1.example.com
-  #     - zookeeper2.example.com
+  zookeeper2.example.com:
+    container_name: zookeeper2.example.com
+    extends:
+      file: ../base/docker-compose-base.yaml
+      service: zookeeper2.example.com
+    networks:
+      - basic      
 
-  # kafka1.example.com:
-  #   container_name: kafka1.example.com
-  #   extends:
-  #     file: ../base/docker-compose-base.yaml
-  #     service: kafka1.example.com
-  #   networks:
-  #     - basic
-  #   depends_on:
-  #     - zookeeper0.example.com
-  #     - zookeeper1.example.com
-  #     - zookeeper2.example.com
+  kafka0.example.com:
+    container_name: kafka0.example.com
+    extends:
+      file: ../base/docker-compose-base.yaml
+      service: kafka0.example.com
+    networks:
+      - basic         
+    depends_on:
+      - zookeeper0.example.com
+      - zookeeper1.example.com
+      - zookeeper2.example.com
 
-  # kafka2.example.com:
-  #   container_name: kafka2.example.com
-  #   extends:
-  #     file: ../base/docker-compose-base.yaml
-  #     service: kafka2.example.com
-  #   networks:
-  #     - basic
-  #   depends_on:
-  #     - zookeeper0.example.com
-  #     - zookeeper1.example.com
-  #     - zookeeper2.example.com
+  kafka1.example.com:
+    container_name: kafka1.example.com
+    extends:
+      file: ../base/docker-compose-base.yaml
+      service: kafka1.example.com
+    networks:
+      - basic         
+    depends_on:
+      - zookeeper0.example.com
+      - zookeeper1.example.com
+      - zookeeper2.example.com
 
-  # kafka3.example.com:
-  #   container_name: kafka3.example.com
-  #   extends:
-  #     file: ../base/docker-compose-base.yaml
-  #     service: kafka3.example.com
-  #   networks:
-  #     - basic
-  #   depends_on:
-  #     - zookeeper0.example.com
-  #     - zookeeper1.example.com
-  #     - zookeeper2.example.com
+  kafka2.example.com:
+    container_name: kafka2.example.com
+    extends:
+      file: ../base/docker-compose-base.yaml
+      service: kafka2.example.com
+    networks:
+      - basic         
+    depends_on:
+      - zookeeper0.example.com
+      - zookeeper1.example.com
+      - zookeeper2.example.com
+
+  kafka3.example.com:
+    container_name: kafka3.example.com
+    extends:
+      file: ../base/docker-compose-base.yaml
+      service: kafka3.example.com
+    networks:
+      - basic         
+    depends_on:
+      - zookeeper0.example.com
+      - zookeeper1.example.com
+      - zookeeper2.example.com
 
   ca.org1.example.com:
     image: hyperledger/fabric-ca
@@ -94,17 +95,17 @@ services:
 
   orderer0.example.com:
     extends:
-      file: ../base/docker-compose-base.yaml
+      file:   ../base/docker-compose-base.yaml
       service: orderer0.example.com
     container_name: orderer0.example.com
-    # depends_on:
-    # - kafka0.example.com
-    # - kafka1.example.com
-    # - kafka2.example.com
-    # - kafka3.example.com
+    depends_on:
+      - kafka0.example.com
+      - kafka1.example.com
+      - kafka2.example.com
+      - kafka3.example.com  
     networks:
       - basic
-
+  
   # orderer1.example.com:
   #   extends:
   #     file:   ../base/docker-compose-base.yaml
@@ -114,7 +115,7 @@ services:
   #     - kafka0.example.com
   #     - kafka1.example.com
   #     - kafka2.example.com
-  #     - kafka3.example.com
+  #     - kafka3.example.com  
   #   networks:
   #     - basic
 
@@ -127,28 +128,28 @@ services:
   #     - kafka0.example.com
   #     - kafka1.example.com
   #     - kafka2.example.com
-  #     - kafka3.example.com
+  #     - kafka3.example.com  
   #   networks:
   #     - basic
 
   peer0.org1.example.com:
     container_name: peer0.org1.example.com
     extends:
-      file: ../base/docker-compose-base.yaml
+      file:  ../base/docker-compose-base.yaml
       service: peer0.org1.example.com
     networks:
       - basic
 
-  couchdb:
-    container_name: couchdb
-    image: couchdb:3.1.1
-    environment:
-      - COUCHDB_USER=
-      - COUCHDB_PASSWORD=
-    ports:
-      - 5984:5984
-    networks:
-      - basic
+  # couchdb:
+  #   container_name: couchdb
+  #   image: hyperledger/fabric-couchdb
+  #   environment:
+  #     - COUCHDB_USER=
+  #     - COUCHDB_PASSWORD=
+  #   ports:
+  #     - 5984:5984
+  #   networks:
+  #     - basic
 
   cli:
     container_name: cli
