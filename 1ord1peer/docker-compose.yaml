@@ -97,11 +97,11 @@ services:
       file: ../base/docker-compose-base.yaml
       service: orderer0.example.com
     container_name: orderer0.example.com
-    depends_on:
-      # - kafka0.example.com
-      # - kafka1.example.com
-      # - kafka2.example.com
-      # - kafka3.example.com
+    # depends_on:
+    # - kafka0.example.com
+    # - kafka1.example.com
+    # - kafka2.example.com
+    # - kafka3.example.com
     networks:
       - basic
 
