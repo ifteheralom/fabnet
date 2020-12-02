@@ -1,12 +1,11 @@
 # Copyright IBM Corp. All Rights Reserved.
 #
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identiier: Apache-2.0
 #
 
-version: '2'
+version: "2"
 
 services:
-
   orderer0.example.com:
     container_name: orderer0.example.com
     extends:
@@ -21,7 +20,7 @@ services:
       - ../config/crypto-config/ordererOrganizations/example.com/orderers/orderer0.example.com/msp:/etc/hyperledger/msp/orderer/msp
     ports:
       - 7050:7050
-  
+
   orderer1.example.com:
     container_name: orderer1.example.com
     extends:
@@ -62,6 +61,10 @@ services:
       - CORE_PEER_ADDRESS=peer0.org1.example.com:7051
       - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_basic
       - CORE_PEER_ENDORSER_ENABLED=true
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=
       - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.org1.example.com:7051
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org1.example.com:7051
       - CORE_PEER_LOCALMSPID=Org1MSP
@@ -98,7 +101,7 @@ services:
     ports:
       - 8051:7051
       - 8053:7053
-  
+
   peer2.org1.example.com:
     container_name: peer2.org1.example.com
     extends:
@@ -202,4 +205,3 @@ services:
     ports:
       - 12092:9092
       - 12093:9093
-      
