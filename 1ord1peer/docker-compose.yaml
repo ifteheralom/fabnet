@@ -1,16 +1,17 @@
-version: "2"
+version: '2'
 
 networks:
   basic:
-
+    
 services:
+
   zookeeper0.example.com:
     container_name: zookeeper0.example.com
     extends:
       file: ../base/docker-compose-base.yaml
       service: zookeeper0.example.com
     networks:
-      - basic
+      - basic      
 
   zookeeper1.example.com:
     container_name: zookeeper1.example.com
@@ -18,7 +19,7 @@ services:
       file: ../base/docker-compose-base.yaml
       service: zookeeper1.example.com
     networks:
-      - basic
+      - basic      
 
   zookeeper2.example.com:
     container_name: zookeeper2.example.com
@@ -26,7 +27,7 @@ services:
       file: ../base/docker-compose-base.yaml
       service: zookeeper2.example.com
     networks:
-      - basic
+      - basic      
 
   kafka0.example.com:
     container_name: kafka0.example.com
@@ -34,7 +35,7 @@ services:
       file: ../base/docker-compose-base.yaml
       service: kafka0.example.com
     networks:
-      - basic
+      - basic         
     depends_on:
       - zookeeper0.example.com
       - zookeeper1.example.com
@@ -46,7 +47,7 @@ services:
       file: ../base/docker-compose-base.yaml
       service: kafka1.example.com
     networks:
-      - basic
+      - basic         
     depends_on:
       - zookeeper0.example.com
       - zookeeper1.example.com
@@ -58,7 +59,7 @@ services:
       file: ../base/docker-compose-base.yaml
       service: kafka2.example.com
     networks:
-      - basic
+      - basic         
     depends_on:
       - zookeeper0.example.com
       - zookeeper1.example.com
@@ -70,7 +71,7 @@ services:
       file: ../base/docker-compose-base.yaml
       service: kafka3.example.com
     networks:
-      - basic
+      - basic         
     depends_on:
       - zookeeper0.example.com
       - zookeeper1.example.com
@@ -94,17 +95,17 @@ services:
 
   orderer0.example.com:
     extends:
-      file: ../base/docker-compose-base.yaml
+      file:   ../base/docker-compose-base.yaml
       service: orderer0.example.com
     container_name: orderer0.example.com
     depends_on:
       - kafka0.example.com
       - kafka1.example.com
       - kafka2.example.com
-      - kafka3.example.com
+      - kafka3.example.com  
     networks:
       - basic
-
+  
   # orderer1.example.com:
   #   extends:
   #     file:   ../base/docker-compose-base.yaml
@@ -114,7 +115,7 @@ services:
   #     - kafka0.example.com
   #     - kafka1.example.com
   #     - kafka2.example.com
-  #     - kafka3.example.com
+  #     - kafka3.example.com  
   #   networks:
   #     - basic
 
@@ -127,14 +128,14 @@ services:
   #     - kafka0.example.com
   #     - kafka1.example.com
   #     - kafka2.example.com
-  #     - kafka3.example.com
+  #     - kafka3.example.com  
   #   networks:
   #     - basic
 
   peer0.org1.example.com:
     container_name: peer0.org1.example.com
     extends:
-      file: ../base/docker-compose-base.yaml
+      file:  ../base/docker-compose-base.yaml
       service: peer0.org1.example.com
     networks:
       - basic
