@@ -51,11 +51,20 @@ function submitTransaction() {
             tx_id = fabric_client.newTransactionID();
             console.log("Assigning transaction_id: ", tx_id._transaction_id);
             
+            // var request = {
+            //     //targets: let default to the peer assigned to the client
+            //     chaincodeId: 'fabcar',
+            //     fcn: 'storeCode',
+            //     args: ['TC1', 'SP1', 'IDP1', '1122', '3344', 'pending', 'pending'],
+            //     chainId: 'mychannel',
+            //     txId: tx_id
+            // };
+
             var request = {
                 //targets: let default to the peer assigned to the client
                 chaincodeId: 'fabcar',
-                fcn: 'storeCode',
-                args: ['TC1', 'SP1', 'IDP1', '1122', '3344', 'pending', 'pending'],
+                fcn: 'createCar',
+                args: ['CAR11', 'Chevy', 'Volt', 'Red', 'Nick'],
                 chainId: 'mychannel',
                 txId: tx_id
             };
