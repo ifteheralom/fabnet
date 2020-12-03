@@ -1,12 +1,4 @@
 'use strict';
-/*
-* Copyright IBM Corp All Rights Reserved
-*
-* SPDX-License-Identifier: Apache-2.0
-*/
-/*
- * Chaincode Invoke
- */
 
 var Fabric_Client = require('fabric-client');
 var path = require('path');
@@ -61,7 +53,7 @@ Fabric_Client.newDefaultKeyValueStore({ path: store_path
 	var request = {
 		//targets: let default to the peer assigned to the client
 		chaincodeId: 'fabcar',
-		fcn: '',
+		fcn: 'queryAllCars',
 		args: [''],
 		chainId: 'mychannel',
 		txId: tx_id
