@@ -26,12 +26,12 @@ type Car struct {
 	Owner  string `json:"owner"`
 }
 type Approval struct {
-	spentityid string
-	idpentityid string
-	spcheck string
-	idpcheck string
-	spcode string
-	idpcode string
+	spentityid string  `json:"spentityid"`
+	idpentityid string  `json:"idpentityid"`
+	spcode string  `json:"spcode"`
+	idpcode string  `json:"idpcode"`
+	spcheck string  `json:"spcheck"`
+	idpcheck string  `json:"idpcheck"`
 }
 
 func (s *SmartContract) Init(APIstub shim.ChaincodeStubInterface) sc.Response {
@@ -62,7 +62,7 @@ func (s *SmartContract) storeCode(APIstub shim.ChaincodeStubInterface, args []st
 	var approval = Approval{spentityid: args[0], idpentityid: args[1], spcode: args[2], idpcode: args[3], spcheck: args[4], idpcheck: args[5]}
 
 	approvalAsBytes, _ := json.Marshal(approval)
-	APIstub.PutState(args[0] + args[0], approvalAsBytes)
+	APIstub.PutState(args[0] + args[1], approvalAsBytes)
 
 	return shim.Success(nil)
 }
