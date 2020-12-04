@@ -69,7 +69,7 @@ func (s *SmartContract) storeCode(APIstub shim.ChaincodeStubInterface, args []st
 	if args[6] == "SP" {
 		approval.SPcode = args[4]
 		approval.IDPcode = "0"
-	} else if args[6] == "SP" {
+	} else if args[6] == "IDP" {
 		approval.IDPcode = args[5]
 		approval.SPcode = "0"
 	}
@@ -79,7 +79,15 @@ func (s *SmartContract) storeCode(APIstub shim.ChaincodeStubInterface, args []st
 
 	return shim.Success(nil)
 }
+func (s *SmartContract) queryApproval(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 
+	if len(args) != 1 {
+		return shim.Error("Incorrect number of arguments. Expecting 1")
+	}
+
+	carAsBytes, _ := APIstub.GetState(args[0])
+	return shim.Success(carAsBytes)
+}
 
 
 
