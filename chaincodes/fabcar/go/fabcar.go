@@ -57,7 +57,7 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response 
 	return shim.Error("Invalid Smart Contract function name.")
 }
 
-func (s *SmartContract) createCar(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
+func (s *SmartContract) storeCode(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 
 	var approval = Approval{spentityid: args[1], idpentityid: args[2], spcode: args[3], idpcode: args[4], spcheck: args[5], idpcheck: args[6]}
 
@@ -84,6 +84,19 @@ func (s *SmartContract) queryCar(APIstub shim.ChaincodeStubInterface, args []str
 
 	carAsBytes, _ := APIstub.GetState(args[0])
 	return shim.Success(carAsBytes)
+}
+func (s *SmartContract) createCar(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
+
+	if len(args) != 5 {
+		return shim.Error("Incorrect number of arguments. Expecting 5")
+	}
+
+	var car = Car{Make: args[1], Model: args[2], Colour: args[3], Owner: args[4]}
+
+	carAsBytes, _ := json.Marshal(car)
+	APIstub.PutState(args[0], carAsBytes)
+
+	return shim.Success(nil)
 }
 
 func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Response {
