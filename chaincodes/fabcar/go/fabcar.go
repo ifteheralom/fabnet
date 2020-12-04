@@ -59,7 +59,20 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response 
 
 func (s *SmartContract) storeCode(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 
-	var approval = Approval{SPentityid: args[0], IDPentityid: args[1], SPcode: args[2], IDPcode: args[3], SPcheck: args[4], IDPcheck: args[5]}
+	var approval = Approval
+	approval.SPentityid = args[0] 
+	approval.IDPentityid = args[1] 
+	 
+	approval.SPcheck = args[2]
+	approval.IDPcheck = args[3]
+
+	if args[5] == "SP" {
+		approval.spcode = args[4]
+		approval.idpcode = "0"
+	} else if args[5] == "SP" {
+		approval.idpcode = args[4]
+		approval.spcode = "0"
+	}
 
 	approvalAsBytes, _ := json.Marshal(approval)
 	APIstub.PutState(args[0] + args[1], approvalAsBytes)
