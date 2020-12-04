@@ -8,7 +8,7 @@ export MSYS_NO_PATHCONV=1
 docker-compose -f docker-compose.yaml stop
 docker-compose -f docker-compose.yaml up -d
 #
-export FABRIC_START_TIMEOUT=10
+export FABRIC_START_TIMEOUT=30
 echo "*** wait for Hyperledger Fabric to start"
 echo ${FABRIC_START_TIMEOUT}
 sleep ${FABRIC_START_TIMEOUT}

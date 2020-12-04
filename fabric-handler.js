@@ -148,6 +148,7 @@ function submitTransaction() {
             resolve()
         }).catch((err) => {
             console.error('Failed to invoke successfully :: ' + err);
+            resolve()
         });
     });
 }
