@@ -66,11 +66,11 @@ func (s *SmartContract) storeCode(APIstub shim.ChaincodeStubInterface, args []st
 	approval.SPcheck = args[2]
 	approval.IDPcheck = args[3]
 
-	if args[5] == "SP" {
+	if args[6] == "SP" {
 		approval.SPcode = args[4]
 		approval.IDPcode = "0"
-	} else if args[5] == "SP" {
-		approval.IDPcode = args[4]
+	} else if args[6] == "SP" {
+		approval.IDPcode = args[5]
 		approval.SPcode = "0"
 	}
 

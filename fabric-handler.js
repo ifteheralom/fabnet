@@ -67,7 +67,7 @@ function submitTransaction(chainFcn = 'storeCode', chainParams) {
                 //targets: let default to the peer assigned to the client
                 chaincodeId: 'fabcar',
                 fcn: chainFcn,
-                args: ['SP1', 'IDP', '1223', '9900', 'done', 'pending', 'SP'],
+                args: ['SP1', 'IDP', 'done', 'pending', '112255', '0', 'SP'],
                 chainId: 'mychannel',
                 txId: tx_id
             };
