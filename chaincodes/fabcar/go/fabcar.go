@@ -59,10 +59,10 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response 
 
 func (s *SmartContract) storeCode(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 
-	var approval = Approval{spentityid: args[1], idpentityid: args[2], spcode: args[3], idpcode: args[4], spcheck: args[5], idpcheck: args[6]}
+	var approval = Approval{spentityid: args[0], idpentityid: args[1], spcode: args[2], idpcode: args[3], spcheck: args[4], idpcheck: args[5]}
 
 	approvalAsBytes, _ := json.Marshal(approval)
-	APIstub.PutState(args[0], approvalAsBytes)
+	APIstub.PutState(args[0] + args[0], approvalAsBytes)
 
 	return shim.Success(nil)
 }
@@ -117,7 +117,7 @@ func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Respo
 	for i < len(cars) {
 		fmt.Println("i is ", i)
 		carAsBytes, _ := json.Marshal(cars[i])
-		APIstub.PutState("initCAR"+strconv.Itoa(i), carAsBytes)
+		APIstub.PutState("CAR"+strconv.Itoa(i), carAsBytes)
 		fmt.Println("Added", cars[i])
 		i = i + 1
 	}
