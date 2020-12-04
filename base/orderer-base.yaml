@@ -1,7 +1,6 @@
-version: '2'
+version: "2"
 
 services:
-
   orderer-base:
     image: hyperledger/fabric-orderer
     environment:
@@ -13,10 +12,10 @@ services:
       - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
       - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
       # kafka
-      - ORDERER_KAFKA_RETRY_SHORTINTERVAL=1s
-      - ORDERER_KAFKA_RETRY_SHORTTOTAL=30s
-      - ORDERER_KAFKA_RETRY_LONGINTERVAL=6s
-      - ORDERER_KAFKA_RETRY_LONGTOTAL=60s
-      - ORDERER_KAFKA_VERBOSE=true
+      # - ORDERER_KAFKA_RETRY_SHORTINTERVAL=1s
+      # - ORDERER_KAFKA_RETRY_SHORTTOTAL=30s
+      # - ORDERER_KAFKA_RETRY_LONGINTERVAL=6s
+      # - ORDERER_KAFKA_RETRY_LONGTOTAL=60s
+      # - ORDERER_KAFKA_VERBOSE=true
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric
     command: orderer
