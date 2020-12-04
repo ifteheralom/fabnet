@@ -32,7 +32,7 @@ echo "*** Invoking chaincodes"
 #
 docker exec -e "CORE_PEER_LOCALMSPID=Org1MSP" -e "CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp"  -e "CORE_PEER_ADDRESS=peer0.org1.example.com:7051" cli peer chaincode invoke -o orderer0.example.com:7050 -C mychannel -n fabcar -c '{"function":"initLedger","Args":[""]}'
 #
-export FABRIC_START_TIMEOUT=10
+export FABRIC_START_TIMEOUT=0
 echo "*** wait for Hyperledger Fabric to finish"
 echo ${FABRIC_START_TIMEOUT}
 sleep ${FABRIC_START_TIMEOUT}

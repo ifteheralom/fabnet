@@ -53,15 +53,25 @@ function submitTransaction() {
             // createCar chaincode function - requires 5 args, ex: args: ['CAR12', 'Honda', 'Accord', 'Black', 'Tom'],
             // changeCarOwner chaincode function - requires 2 args , ex: args: ['CAR10', 'Dave'],
             // must send the proposal to endorsing peers
+            
+            // var request = {
+            //     //targets: let default to the peer assigned to the client
+            //     chaincodeId: 'fabcar',
+            //     fcn: 'queryAllCars',
+            //     args: [''],
+            //     chainId: 'mychannel',
+            //     txId: tx_id
+            // };
+        
             var request = {
                 //targets: let default to the peer assigned to the client
                 chaincodeId: 'fabcar',
-                fcn: 'queryAllCars',
-                args: [''],
+                fcn: 'storeCode',
+                args: ['SP!', 'IDP', '1223', '9900', 'done', 'pending', 'SP'],
                 chainId: 'mychannel',
                 txId: tx_id
             };
-        
+
             // send the transaction proposal to the peers
             return channel.sendTransactionProposal(request);
         }).then((results) => {
