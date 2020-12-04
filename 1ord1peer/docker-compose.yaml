@@ -1,8 +1,81 @@
-version: '2'
+version: "2"
+
 networks:
   basic:
 
 services:
+  zookeeper0.example.com:
+    container_name: zookeeper0.example.com
+    extends:
+      file: ../base/docker-compose-base.yaml
+      service: zookeeper0.example.com
+    networks:
+      - basic
+
+  zookeeper1.example.com:
+    container_name: zookeeper1.example.com
+    extends:
+      file: ../base/docker-compose-base.yaml
+      service: zookeeper1.example.com
+    networks:
+      - basic
+
+  zookeeper2.example.com:
+    container_name: zookeeper2.example.com
+    extends:
+      file: ../base/docker-compose-base.yaml
+      service: zookeeper2.example.com
+    networks:
+      - basic
+
+  kafka0.example.com:
+    container_name: kafka0.example.com
+    extends:
+      file: ../base/docker-compose-base.yaml
+      service: kafka0.example.com
+    networks:
+      - basic
+    depends_on:
+      - zookeeper0.example.com
+      - zookeeper1.example.com
+      - zookeeper2.example.com
+
+  kafka1.example.com:
+    container_name: kafka1.example.com
+    extends:
+      file: ../base/docker-compose-base.yaml
+      service: kafka1.example.com
+    networks:
+      - basic
+    depends_on:
+      - zookeeper0.example.com
+      - zookeeper1.example.com
+      - zookeeper2.example.com
+
+  kafka2.example.com:
+    container_name: kafka2.example.com
+    extends:
+      file: ../base/docker-compose-base.yaml
+      service: kafka2.example.com
+    networks:
+      - basic
+    depends_on:
+      - zookeeper0.example.com
+      - zookeeper1.example.com
+      - zookeeper2.example.com
+
+  kafka3.example.com:
+    container_name: kafka3.example.com
+    extends:
+      file: ../base/docker-compose-base.yaml
+      service: kafka3.example.com
+    networks:
+      - basic
+    depends_on:
+      - zookeeper0.example.com
+      - zookeeper1.example.com
+      - zookeeper2.example.com
+
   ca.org1.example.com:
     image: hyperledger/fabric-ca
     environment:
@@ -19,54 +92,69 @@ services:
     networks:
       - basic
 
-  orderer.example.com:
-    container_name: orderer.example.com
-    image: hyperledger/fabric-orderer
-    environment:
-      - ORDERER_GENERAL_LOGLEVEL=info
-      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
-      - ORDERER_GENERAL_GENESISMETHOD=file
-      - ORDERER_GENERAL_GENESISFILE=/etc/hyperledger/configtx/genesis.block
-      - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
-      - ORDERER_GENERAL_LOCALMSPDIR=/etc/hyperledger/msp/orderer/msp
-    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
-    command: orderer
-    ports:
-      - 7050:7050
-    volumes:
-      - ../config/:/etc/hyperledger/configtx
-      - ../config/crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/msp:/etc/hyperledger/msp/orderer/msp
+  orderer0.example.com:
+    extends:
+      file: ../base/docker-compose-base.yaml
+      service: orderer0.example.com
+    container_name: orderer0.example.com
+    depends_on:
+      - kafka0.example.com
+      - kafka1.example.com
+      - kafka2.example.com
+      - kafka3.example.com
     networks:
       - basic
 
+  # orderer1.example.com:
+  #   extends:
+  #     file:   ../base/docker-compose-base.yaml
+  #     service: orderer1.example.com
+  #   container_name: orderer1.example.com
+  #   depends_on:
+  #     - kafka0.example.com
+  #     - kafka1.example.com
+  #     - kafka2.example.com
+  #     - kafka3.example.com
+  #   networks:
+  #     - basic
+
+  # orderer2.example.com:
+  #   extends:
+  #     file:   ../base/docker-compose-base.yaml
+  #     service: orderer2.example.com
+  #   container_name: orderer2.example.com
+  #   depends_on:
+  #     - kafka0.example.com
+  #     - kafka1.example.com
+  #     - kafka2.example.com
+  #     - kafka3.example.com
+  #   networks:
+  #     - basic
+
   peer0.org1.example.com:
     container_name: peer0.org1.example.com
-    image: hyperledger/fabric-peer
+    extends:
+      file: ../base/docker-compose-base.yaml
+      service: peer0.org1.example.com
+    networks:
+      - basic
+
+  # peer1.org1.example.com:
+  #   container_name: peer1.org1.example.com
+  #   extends:
+  #     file: ../base/docker-compose-base.yaml
+  #     service: peer1.org1.example.com
+  #   networks:
+  #     - basic
+
+  couchdb:
+    container_name: couchdb
+    image: hyperledger/fabric-couchdb
     environment:
-      - CORE_LOGGING_PEER=info
-      - CORE_CHAINCODE_LOGGING_LEVEL=info
-      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
-      - CORE_PEER_ID=peer0.org1.example.com
-      - CORE_PEER_ENDORSER_ENABLED=true
-      - CORE_PEER_ADDRESS=peer0.org1.example.com:7051
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_basic
-      - CORE_PEER_LOCALMSPID=Org1MSP
-      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
-      - CORE_PEER_GOSSIP_USELEADERELECTION=true
-      - CORE_PEER_GOSSIP_ORGLEADER=false
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org1.example.com:7051
-    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
-    command: peer node start
+      - COUCHDB_USER=
+      - COUCHDB_PASSWORD=
     ports:
-      - 7051:7051
-      - 7053:7053
-    volumes:
-      - /var/run/:/host/var/run/
-      - ../config/:/etc/hyperledger/configtx
-      - ../config/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp:/etc/hyperledger/peer/msp
-      - ../config/crypto-config/peerOrganizations/org1.example.com/users:/etc/hyperledger/msp/users
-    depends_on:
-      - orderer.example.com
+      - 5984:5984
     networks:
       - basic
 
@@ -77,7 +165,7 @@ services:
     environment:
       - GOPATH=/opt/gopath
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
-      - CORE_LOGGING_LEVEL=info
+      - CORE_LOGGING_LEVEL=debug
       - CORE_PEER_ID=cli
       - CORE_PEER_ADDRESS=peer0.org1.example.com:7051
       - CORE_PEER_LOCALMSPID=Org1MSP
@@ -91,3 +179,8 @@ services:
       - ../config/crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
     networks:
       - basic
+    depends_on:
+      - orderer0.example.com
+      # - orderer1.example.com
+      # - orderer2.example.com
+      - peer0.org1.example.com
