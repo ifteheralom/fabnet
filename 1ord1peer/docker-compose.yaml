@@ -1,4 +1,4 @@
-version: "2"
+version: '2'
 networks:
   basic:
 
@@ -34,7 +34,7 @@ services:
     ports:
       - 7050:7050
     volumes:
-      - ../config:/etc/hyperledger/configtx
+      - ../config/:/etc/hyperledger/configtx
       - ../config/crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/msp:/etc/hyperledger/msp/orderer/msp
     networks:
       - basic
