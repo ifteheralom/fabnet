@@ -26,12 +26,16 @@ type Car struct {
 	Owner  string `json:"owner"`
 }
 type Approval struct {
-	SPentityid string  `json:"spentityid"`
-	IDPentityid string  `json:"idpentityid"`
-	SPcode string  `json:"spcode"`
-	IDPcode string  `json:"idpcode"`
-	SPcheck string  `json:"spcheck"`
-	IDPcheck string  `json:"idpcheck"`
+	SPentityid string  //`json:"spentityid"`
+	IDPentityid string  // `json:"idpentityid"`
+	SPcode string // `json:"spcode"`
+	IDPcode string  //`json:"idpcode"`
+	SPcheck string  //`json:"spcheck"`
+	IDPcheck string // `json:"idpcheck"`
+}
+
+type ApprovalList struct {
+	ApprovalArray []Approval 
 }
 
 func (s *SmartContract) Init(APIstub shim.ChaincodeStubInterface) sc.Response {
@@ -133,6 +137,10 @@ func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Respo
 		fmt.Println("Added", cars[i])
 		i = i + 1
 	}
+
+	approvalList := ApprovalList
+	approvalListAsBytes, _ := json.Marshal(approvalList)
+	APIstub.PutState("approval_list", approvalListAsBytes)
 
 	return shim.Success(nil)
 }
