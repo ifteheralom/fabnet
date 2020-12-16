@@ -42,6 +42,9 @@ type TALList {
 	TALArray []TAL `json:"talArray"`
 }
 
+var codeStoreKey = "code_store"
+var talStoreKey = "tal_store"
+
 
 func (s *SmartContract) Init(APIstub shim.ChaincodeStubInterface) sc.Response {
 	return shim.Success(nil)
@@ -83,14 +86,14 @@ func (s *SmartContract) storeCode(APIstub shim.ChaincodeStubInterface, args []st
 		approval.SPcode = "0"
 	}
 
-	approvalListAsBytes, _ := APIstub.GetState("approval_list")
-	approval_list := ApprovalList{}
+	approvalListAsBytes, _ := APIstub.GetState(codeStoreKey)
+	codeStoreKey := ApprovalList{}
 
 	json.Unmarshal(approvalListAsBytes, &approval_list)
 	approval_list.ApprovalArray = append(approval_list.ApprovalArray, approval)
 
 	approvalListAsBytes, _ = json.Marshal(approval_list)
-	APIstub.PutState("approval_list", approvalListAsBytes)
+	APIstub.PutState(codeStoreKey, approvalListAsBytes)
 
 	return shim.Success(nil)
 }
@@ -126,7 +129,7 @@ func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Respo
 
 	var approvalList ApprovalList
 	approvalListAsBytes, _ := json.Marshal(approvalList)
-	APIstub.PutState("approval_list", approvalListAsBytes)
+	APIstub.PutState(codeStoreKey, approvalListAsBytes)
 
 	// codeargs := []string{"SP0", "IDP0", "pending", "pending", "1122", "0"}
 	// s.storeCode(APIstub, codeargs)
