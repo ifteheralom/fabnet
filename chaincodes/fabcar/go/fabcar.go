@@ -37,7 +37,7 @@ type TAL struct {
 	EntityId string
 }
 
-type TALList {
+type TALList struct {
 	Entity string
 	TALArray []TAL `json:"talArray"`
 }
