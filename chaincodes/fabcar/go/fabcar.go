@@ -1,9 +1,5 @@
 package main
 
-/* Imports
- * 4 utility libraries for formatting, handling bytes, reading and writing JSON, and string manipulation
- * 2 specific Hyperledger Fabric specific libraries for Smart Contracts
- */
 import (
 	"bytes"
 	"encoding/json"
@@ -13,12 +9,10 @@ import (
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	sc "github.com/hyperledger/fabric/protos/peer"
 )
- 
-// Define the Smart Contract structure
+
 type SmartContract struct {
 }
 
-// Define the car structure, with 4 properties.  Structure tags are used by encoding/json library
 type Car struct {
 	Make   string `json:"make"`
 	Model  string `json:"model"`
@@ -26,18 +20,28 @@ type Car struct {
 	Owner  string `json:"owner"`
 }
 type Approval struct {
-	SPentityid string  //`json:"spentityid"`
-	IDPentityid string  // `json:"idpentityid"`
-	SPcode string // `json:"spcode"`
-	IDPcode string  //`json:"idpcode"`
-	SPcheck string  //`json:"spcheck"`
-	IDPcheck string // `json:"idpcheck"`
+	SPentityid string  
+	IDPentityid string 
+	SPcode string 
+	IDPcode string  
+	SPcheck string  
+	IDPcheck string 
 }
 
 type ApprovalList struct {
 	ApprovalArray []Approval `json:"approvalArray"`
 	ApprovalIndex int
 }
+
+type TAL struct {
+	EntityId string
+}
+
+type TALList {
+	Entity string
+	TALArray []TAL `json:"talArray"`
+}
+
 
 func (s *SmartContract) Init(APIstub shim.ChaincodeStubInterface) sc.Response {
 	return shim.Success(nil)
