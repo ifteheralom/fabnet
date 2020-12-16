@@ -36,6 +36,7 @@ type Approval struct {
 
 type ApprovalList struct {
 	ApprovalArray []Approval `json:"approvalArray"`
+	ApprovalIndex int
 }
 
 func (s *SmartContract) Init(APIstub shim.ChaincodeStubInterface) sc.Response {
@@ -78,7 +79,7 @@ func (s *SmartContract) storeCode(APIstub shim.ChaincodeStubInterface, args []st
 		approval.SPcode = "0"
 	}
 
-	approvalListAsBytes, _ := APIstub.GetState(args[0])
+	approvalListAsBytes, _ := APIstub.GetState("approval_list")
 	approval_list := ApprovalList{}
 
 	json.Unmarshal(approvalListAsBytes, &approval_list)
