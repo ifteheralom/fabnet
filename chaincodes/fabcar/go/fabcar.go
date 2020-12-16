@@ -161,7 +161,7 @@ func (s *SmartContract) queryAllCars(APIstub shim.ChaincodeStubInterface) sc.Res
 	resultsIterator, err := APIstub.GetStateByRange(startKey, endKey)
 	if err != nil {
 		return shim.Error(err.Error())
-	}3
+	}
 	defer resultsIterator.Close()
 
 	// buffer is a JSON array containing QueryResults
