@@ -82,7 +82,7 @@ func (s *SmartContract) storeCode(APIstub shim.ChaincodeStubInterface, args []st
 	approval_list := ApprovalList{}
 
 	json.Unmarshal(approvalListAsBytes, &approval_list)
-	approval_list.Owner = append(approval_list, approval[len(approval_list-1)])
+	approval_list.Owner = append(approval_list, approval[len(approval_list)-1])
 
 	approvalListAsBytes, _ = json.Marshal(approval_list)
 	APIstub.PutState("approval_list", approvalListAsBytes)
