@@ -123,8 +123,8 @@ func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Respo
 	approvalListAsBytes, _ := json.Marshal(approvalList)
 	APIstub.PutState("approval_list", approvalListAsBytes)
 
-	codeargs := []string{"SP0", "IDP0", "pending", "pending", "1122", "0"}
-	s.storeCode(APIstub, codeargs)
+	// codeargs := []string{"SP0", "IDP0", "pending", "pending", "1122", "0"}
+	// s.storeCode(APIstub, codeargs)
 
 	return shim.Success(nil)
 }
