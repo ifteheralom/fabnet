@@ -87,7 +87,7 @@ func (s *SmartContract) storeCode(APIstub shim.ChaincodeStubInterface, args []st
 	}
 
 	approvalListAsBytes, _ := APIstub.GetState(codeStoreKey)
-	codeStoreKey := ApprovalList{}
+	approval_list := ApprovalList{}
 
 	json.Unmarshal(approvalListAsBytes, &approval_list)
 	approval_list.ApprovalArray = append(approval_list.ApprovalArray, approval)
