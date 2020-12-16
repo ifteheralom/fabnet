@@ -103,7 +103,30 @@ func (s *SmartContract) queryApproval(APIstub shim.ChaincodeStubInterface, args 
 
 
 
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Response {
+	cars := []Car{
+		Car{Make: "Toyota", Model: "Prius", Colour: "blue", Owner: "Tomoko"},
+	}
 
+	i := 0
+	for i < len(cars) {
+		fmt.Println("i is ", i)
+		carAsBytes, _ := json.Marshal(cars[i])
+		APIstub.PutState("CAR"+strconv.Itoa(i), carAsBytes)
+		fmt.Println("Added", cars[i])
+		i = i + 1
+	}
+
+	var approvalList ApprovalList
+	approvalListAsBytes, _ := json.Marshal(approvalList)
+	APIstub.PutState("approval_list", approvalListAsBytes)
+
+	storeCode("SP0", "IDP0", "pending", "pending", "1122", "0")
+
+	return shim.Success(nil)
+}
 
 
 // /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -126,27 +149,6 @@ func (s *SmartContract) createCar(APIstub shim.ChaincodeStubInterface, args []st
 
 	carAsBytes, _ := json.Marshal(car)
 	APIstub.PutState(args[0], carAsBytes)
-
-	return shim.Success(nil)
-}
-
-func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Response {
-	cars := []Car{
-		Car{Make: "Toyota", Model: "Prius", Colour: "blue", Owner: "Tomoko"},
-	}
-
-	i := 0
-	for i < len(cars) {
-		fmt.Println("i is ", i)
-		carAsBytes, _ := json.Marshal(cars[i])
-		APIstub.PutState("CAR"+strconv.Itoa(i), carAsBytes)
-		fmt.Println("Added", cars[i])
-		i = i + 1
-	}
-
-	var approvalList ApprovalList
-	approvalListAsBytes, _ := json.Marshal(approvalList)
-	APIstub.PutState("approval_list", approvalListAsBytes)
 
 	return shim.Success(nil)
 }
