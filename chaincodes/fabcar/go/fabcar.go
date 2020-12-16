@@ -124,7 +124,7 @@ func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Respo
 	APIstub.PutState("approval_list", approvalListAsBytes)
 
 	codeargs := []string{"SP0", "IDP0", "pending", "pending", "1122", "0"}
-	res := s.storeCode(APIstub, codeargs)
+	s.storeCode(APIstub, codeargs)
 
 	return shim.Success(nil)
 }
