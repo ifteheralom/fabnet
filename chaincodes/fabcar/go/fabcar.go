@@ -13,7 +13,7 @@ import (
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	sc "github.com/hyperledger/fabric/protos/peer"
 )
-
+ 
 // Define the Smart Contract structure
 type SmartContract struct {
 }
@@ -159,7 +159,7 @@ func (s *SmartContract) queryAllCars(APIstub shim.ChaincodeStubInterface) sc.Res
 	resultsIterator, err := APIstub.GetStateByRange(startKey, endKey)
 	if err != nil {
 		return shim.Error(err.Error())
-	}
+	}3
 	defer resultsIterator.Close()
 
 	// buffer is a JSON array containing QueryResults
