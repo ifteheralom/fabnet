@@ -97,6 +97,7 @@ func (s *SmartContract) storeCode(APIstub shim.ChaincodeStubInterface, args []st
 
 	return shim.Success(nil)
 }
+
 func (s *SmartContract) queryApproval(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 
 	if len(args) != 1 {

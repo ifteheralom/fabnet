@@ -66,12 +66,12 @@ function submitTransaction(chainFcn = 'storeCode', chainParams) {
             var request = {
                 //targets: let default to the peer assigned to the client
                 chaincodeId: 'fabcar',
-                fcn: 'storeCode',
+                fcn: chainFcn,
                 args: ['SP1', 'IDP', 'done', 'DONE', '112255', '999', 'SP'],
                 chainId: 'mychannel',
                 txId: tx_id
             };
-
+            console.log(request);
             // send the transaction proposal to the peers
             return channel.sendTransactionProposal(request);
         }).then((results) => {
