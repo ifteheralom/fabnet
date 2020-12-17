@@ -52,6 +52,44 @@ app.get('/fabric', (req, res) => {
     })
 })
 
+app.get('/storecode', (req, res) => {
+    console.log('####...... storecode');
+
+    let spentityid = req.body.spentityid
+    let idpentityid = req.body.idpentityid
+    let spCode = req.body.spcode;
+    let idpCode = req.body.idpcode;
+    let spCheck = req.body.spcheck;
+    let idpCheck = req.body.idpcheck;
+    let author = req.body.author
+
+    let txnData = {
+        fcn : "storeCode",
+        args: [spentityid, idpentityid, spCode, idpCode, spCheck, idpCheck, author]
+    }
+
+    fabric_handler.submitTransaction(txnData).then((result) => {
+        console.log(result)
+        res.status(200).send(result);
+    })
+})
+
+app.get('/approval', (req, res) => {
+    console.log('####...... approval');
+
+    let author = req.query.author;
+
+    let txnData = {
+        fcn : "storeCode",
+        args: [author]
+    }
+
+    fabric_handler.submitTransaction(txnData).then((result) => {
+        console.log(result)
+        res.status(200).send(result);
+    })
+})
+
 ///////////////////////////////////////
 startServer();
 ///////////////////////////////////////

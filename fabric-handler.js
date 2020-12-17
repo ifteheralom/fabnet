@@ -61,13 +61,14 @@ function submitTransaction(txnData = {}) {
             //     args: [''],
             //     chainId: 'mychannel',
             //     txId: tx_id
-            // };
+            // }; 
+            // ['SP1', 'IDP', 'done', 'DONE', '112255', '999', 'SP']
         
             var request = {
                 //targets: let default to the peer assigned to the client
                 chaincodeId: 'fabcar',
                 fcn: txnData.fcn,
-                args: ['SP1', 'IDP', 'done', 'DONE', '112255', '999', 'SP'],
+                args: txnData.args,
                 chainId: 'mychannel',
                 txId: tx_id
             };
@@ -163,7 +164,7 @@ function submitTransaction(txnData = {}) {
                 console.log('Transaction failed to be committed to the ledger due to ::'+results[1].event_status);
             }
 
-            resolve()
+            resolve(results)
         }).catch((err) => {
             console.error('Failed to invoke successfully :: ' + err);
             resolve();
