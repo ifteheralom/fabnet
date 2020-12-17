@@ -43,7 +43,7 @@ app.get('/fabric', (req, res) => {
     console.log('####......New fabric request');
 
     let txnData = {
-
+        fcn : "storeCode"
     }
 
     fabric_handler.submitTransaction(txnData).then((result) => {

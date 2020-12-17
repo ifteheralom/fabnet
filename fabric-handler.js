@@ -22,8 +22,8 @@ console.log('Store path:'+store_path);
 var tx_id = null;
 
 
-
-function submitTransaction(chainFcn = 'storeCode', chainParams) {
+function submitTransaction(txnData = {}) {
+    
     return new Promise((resolve, reject) => {
         Fabric_Client.newDefaultKeyValueStore({ path: store_path
         }).then((state_store) => {
@@ -66,7 +66,7 @@ function submitTransaction(chainFcn = 'storeCode', chainParams) {
             var request = {
                 //targets: let default to the peer assigned to the client
                 chaincodeId: 'fabcar',
-                fcn: chainFcn,
+                fcn: txnData.fcn,
                 args: ['SP1', 'IDP', 'done', 'DONE', '112255', '999', 'SP'],
                 chainId: 'mychannel',
                 txId: tx_id
