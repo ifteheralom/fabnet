@@ -39,20 +39,64 @@ let startServer = () => {
 const fabric_handler = require('./fabric-handler');
 
 
-app.get('/fabric', (req, res) => {
+app.get('/', (req, res) => {
     console.log('####......New fabric request');
 
+    // let txnData = {
+    //     fcn : "storeCode"
+    // }
+
+    // fabric_handler.submitTransaction(txnData).then((result) => {
+    //     console.log(result)
+    //     res.status(200).end();
+    // })
+
+    res.status(200).send("Fabric DApp is Running");
+})
+
+//////////////////////////////////////////////////////////
+app.post('/storetallist', (req, res) => {
+    console.log('####...... storetallist');
+
+    let entityId = req.body.entityId
+    let tal = req.body.tal
+
     let txnData = {
-        fcn : "storeCode"
+        fcn : "StoreTalList",
+        args: [entityId, tal]
     }
 
     fabric_handler.submitTransaction(txnData).then((result) => {
         console.log(result)
-        res.status(200).end();
+        res.status(200).send("success");
     })
 })
 
-app.get('/storecode', (req, res) => {
+app.get('/tallistfetch', (req, res) => {
+    console.log('####...... tallistfetch');
+
+    let entityId = req.query.entityId
+
+    let txnData = {
+        fcn : "TalListReturn",
+        args: [entityId]
+    }
+
+    fabric_handler.submitTransaction(txnData).then((result) => {
+        console.log(result.toString())
+        let resultJson = JSON.parse(result.toString())
+        let arr = []
+        for (var i in resultJson)
+            {
+                var name = resultJson[i].Tal;
+                arr.push(name)
+            }
+        res.status(200).send(arr)
+    })
+})
+
+
+app.post('/storecode', (req, res) => {
     console.log('####...... storecode');
 
     let spentityid = req.body.spentityid
@@ -64,29 +108,82 @@ app.get('/storecode', (req, res) => {
     let author = req.body.author
 
     let txnData = {
-        fcn : "storeCode",
+        fcn : "NewStoreCode",
         args: [spentityid, idpentityid, spCode, idpCode, spCheck, idpCheck, author]
     }
 
     fabric_handler.submitTransaction(txnData).then((result) => {
+        console.log("success")
+        res.status(200).send("success");
+    })
+})
+
+app.get('/codefetch', (req, res) => {
+    console.log('####...... codefetch');
+    
+    let spentityid = req.query.spentityid;
+    let idpentityid = req.query.idpentityid;
+    let author = req.query.author;
+    let code = req.query.code;
+
+    let txnData = {
+        fcn : "NewCode",
+        args: [spentityid, idpentityid, author, code]
+    }
+
+    fabric_handler.submitTransaction(txnData).then((result) => {
         console.log(result)
-        res.status(200).send(result);
+        res.status(200).send(JSON.stringify(result.toString()));
     })
 })
 
 app.get('/approval', (req, res) => {
     console.log('####...... approval');
-
+    
     let author = req.query.author;
 
     let txnData = {
-        fcn : "storeCode",
+        fcn : "Approval",
         args: [author]
     }
 
     fabric_handler.submitTransaction(txnData).then((result) => {
         console.log(result)
-        res.status(200).send(result);
+        res.status(200).send(result.toString());
+    })
+})
+
+app.get('/removeapproval', (req, res) => {
+    console.log('####...... removeapproval');
+    
+    let spentityid = req.query.spentityid;
+    let idpentityid = req.query.idpentityid;
+
+    let txnData = {
+        fcn : "RemoveApproval",
+        args: [spentityid, idpentityid]
+    }
+
+    fabric_handler.submitTransaction(txnData).then((result) => {
+        console.log(result)
+        res.status(200).send("success");
+    })
+})
+
+app.get('/deletetal', (req, res) => {
+    console.log('####...... deletetal');
+    
+    let entityid = req.query.entityid
+    let tal = req.query.tal
+
+    let txnData = {
+        fcn : "TalListDelete",
+        args: [entityid, tal]
+    }
+
+    fabric_handler.submitTransaction(txnData).then((result) => {
+        console.log(result)
+        res.status(200).send("success");
     })
 })
 
