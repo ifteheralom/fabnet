@@ -81,7 +81,7 @@ app.get('/tallistfetch', (req, res) => {
     let entityId = req.query.entityId
 
     let txnData = {
-        fcn : "TalListReturn",
+        fcn : "returnTalList",
         args: [entityId]
     }
 
@@ -111,7 +111,7 @@ app.post('/storecode', (req, res) => {
     let author = req.body.author
 
     let txnData = {
-        fcn : "NewStoreCode",
+        fcn : "storeCode",
         args: [spentityid, idpentityid, spCode, idpCode, spCheck, idpCheck, author]
     }
 
@@ -130,7 +130,7 @@ app.get('/codefetch', (req, res) => {
     let code = req.query.code;
 
     let txnData = {
-        fcn : "NewCode",
+        fcn : "codeFetch",
         args: [spentityid, idpentityid, author, code]
     }
 
@@ -146,7 +146,7 @@ app.get('/approval', (req, res) => {
     let author = req.query.author;
 
     let txnData = {
-        fcn : "Approval",
+        fcn : "approval",
         args: [author]
     }
 
@@ -163,7 +163,7 @@ app.get('/removeapproval', (req, res) => {
     let idpentityid = req.query.idpentityid;
 
     let txnData = {
-        fcn : "RemoveApproval",
+        fcn : "removeApproval",
         args: [spentityid, idpentityid]
     }
 
@@ -180,7 +180,7 @@ app.get('/deletetal', (req, res) => {
     let tal = req.query.tal
 
     let txnData = {
-        fcn : "TalListDelete",
+        fcn : "talListDelete",
         args: [entityid, tal]
     }
 
