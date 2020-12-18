@@ -78,11 +78,11 @@ app.post('/storetallist', (req, res) => {
 app.get('/tallistfetch', (req, res) => {
     console.log('####...... tallistfetch');
 
-    let entityId = req.query.entityId
+    let entityid = req.query.entityid
 
     let txnData = {
         fcn : "returnTalList",
-        args: [entityId]
+        args: [entityid]
     }
 
     fabric_handler.submitTransaction(txnData).then((result) => {
