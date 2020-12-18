@@ -62,6 +62,7 @@ function submitTransaction(txnData = {}) {
                 fcn: txnData.fcn,
                 args: txnData.args
             };
+            console.log(request);
         
             // const request = {
             // 	//targets : --- letting this default to the peers assigned to the channel
