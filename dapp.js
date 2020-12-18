@@ -49,7 +49,7 @@ app.get('/', (req, res) => {
 
     fabric_handler.submitTransaction(txnData).then((result) => {
         console.log(result)
-        res.send(JSON.stringify(result.toString));
+        res.send(JSON.stringify(result));
     }).catch(e => {
         console.log(e);
     })
