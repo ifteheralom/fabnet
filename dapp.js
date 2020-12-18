@@ -54,7 +54,7 @@ app.get('/', (req, res) => {
         console.log(e);
     })
 
-    res.status(200).send("Fabric DApp is Running");
+    // res.status(200).send("Fabric DApp is Running");
 })
 
 //////////////////////////////////////////////////////////
