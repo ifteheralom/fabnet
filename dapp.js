@@ -49,7 +49,7 @@ app.get('/', (req, res) => {
 
     fabric_handler.submitTransaction(txnData).then((result) => {
         console.log(result)
-        res.status(200).end();
+        res.status(200).send(JSON.stringify(result.toString));
     })
 
     res.status(200).send("Fabric DApp is Running");
