@@ -59,8 +59,8 @@ function submitTransaction(txnData = {}) {
             const request = {
                 //targets : --- letting this default to the peers assigned to the channel
                 chaincodeId: 'fabcar',
-                fcn: 'approval',
-                args: ['www.sp3.sust.com']
+                fcn: txnData.fcn,
+                args: txnData.args
             };
         
             // const request = {
