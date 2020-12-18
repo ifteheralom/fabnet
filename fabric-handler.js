@@ -46,34 +46,31 @@ function submitTransaction(txnData = {}) {
                 throw new Error('Failed to get user1.... run registerUser.js');
             }
         
-            // get a transaction id object based on the current user assigned to fabric client
-            tx_id = fabric_client.newTransactionID();
-            console.log("Assigning transaction_id: ", tx_id._transaction_id);
+            // queryCar chaincode function - requires 1 argument, ex: args: ['CAR4'],
+            // queryAllCars chaincode function - requires no arguments , ex: args: [''],
+            // const request = {
+            // 	//targets : --- letting this default to the peers assigned to the channel
+            // 	chaincodeId: 'fabcar',
+            // 	fcn: 'metaDataFetch',
+            // 	args: ['www.idp.org']
+            // };
         
-            // createCar chaincode function - requires 5 args, ex: args: ['CAR12', 'Honda', 'Accord', 'Black', 'Tom'],
-            // changeCarOwner chaincode function - requires 2 args , ex: args: ['CAR10', 'Dave'],
-            // must send the proposal to endorsing peers
-            
-            // var request = {
-            //     //targets: let default to the peer assigned to the client
-            //     chaincodeId: 'fabcar',
-            //     fcn: 'queryAllCars',
-            //     args: [''],
-            //     chainId: 'mychannel',
-            //     txId: tx_id
-            // }; 
-            // ['SP1', 'IDP', 'done', 'DONE', '112255', '999', 'SP']
         
-            var request = {
-                //targets: let default to the peer assigned to the client
+            const request = {
+                //targets : --- letting this default to the peers assigned to the channel
                 chaincodeId: 'fabcar',
-                fcn: txnData.fcn,
-                args: txnData.args,
-                chainId: 'mychannel',
-                txId: tx_id
+                fcn: 'approval',
+                args: ['www.sp3.sust.com']
             };
-            console.log(request);
-            // send the transaction proposal to the peers
+        
+            // const request = {
+            // 	//targets : --- letting this default to the peers assigned to the channel
+            // 	chaincodeId: 'fabcar',
+            // 	fcn: 'codeCheck',
+            // 	args: ['www.sp3.sust.com', 'www.idp.sust.com', 'sp']
+            // };
+        
+            // send the query proposal to the peer
             return channel.queryByChaincode(request);
         }).then((query_responses) => {
             console.log("Query has completed, checking results");
@@ -82,13 +79,21 @@ function submitTransaction(txnData = {}) {
                 if (query_responses[0] instanceof Error) {
                     console.error("error from query = ", query_responses[0]);
                 } else {
-                    console.log("Response is ", query_responses[0].toString());
+                     console.log("Response is ", query_responses[0].toString());
+
+                     resolve(query_responses[0].toString())
+        
+                    //let resultJson = JSON.parse(query_responses[0].toString())
+                    //let arr = []
+                //	console.log("Response is ", resultJson.TList);
+                    //let arr = []
+                    // resultJson.forEach(function(element) {
+                    // 	console.log(element.TList[Tal]);
+                    //   });
                 }
             } else {
                 console.log("No payloads were returned from query");
             }
-
-            resolve(query_responses[0].toString())
         }).catch((err) => {
             console.error('Failed to query successfully :: ' + err);
         });
