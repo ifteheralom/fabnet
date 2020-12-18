@@ -30,7 +30,7 @@ let startServer = () => {
 	// let io = socketIO(server);
 	server.listen(port, function () {
 		console.log(`Server is up on: http://localhost:${server.address().port}`);
-	});
+	})
 }
 
 // const argv = yargs.argv;
@@ -49,7 +49,9 @@ app.get('/', (req, res) => {
 
     fabric_handler.submitTransaction(txnData).then((result) => {
         console.log(result)
-        res.status(200).send(JSON.stringify(result.toString));
+        res.send(JSON.stringify(result.toString));
+    }).catch(e => {
+        console.log(e);
     })
 
     res.status(200).send("Fabric DApp is Running");
@@ -69,7 +71,7 @@ app.post('/storetallist', (req, res) => {
 
     fabric_handler.submitTransaction(txnData).then((result) => {
         console.log(result)
-        res.status(200).send("success");
+        res.send("success");
     })
 })
 
@@ -92,7 +94,7 @@ app.get('/tallistfetch', (req, res) => {
                 var name = resultJson[i].Tal;
                 arr.push(name)
             }
-        res.status(200).send(arr)
+        res.send(arr)
     })
 })
 
@@ -115,7 +117,7 @@ app.post('/storecode', (req, res) => {
 
     fabric_handler.submitTransaction(txnData).then((result) => {
         console.log("success")
-        res.status(200).send("success");
+        res.send("success");
     })
 })
 
@@ -134,7 +136,7 @@ app.get('/codefetch', (req, res) => {
 
     fabric_handler.submitTransaction(txnData).then((result) => {
         console.log(result)
-        res.status(200).send(JSON.stringify(result.toString()));
+        res.send(JSON.stringify(result.toString()));
     })
 })
 
@@ -150,7 +152,7 @@ app.get('/approval', (req, res) => {
 
     fabric_handler.submitTransaction(txnData).then((result) => {
         console.log(result)
-        res.status(200).send(result.toString());
+        res.send(result.toString());
     })
 })
 
@@ -167,7 +169,7 @@ app.get('/removeapproval', (req, res) => {
 
     fabric_handler.submitTransaction(txnData).then((result) => {
         console.log(result)
-        res.status(200).send("success");
+        res.send("success");
     })
 })
 
@@ -184,7 +186,7 @@ app.get('/deletetal', (req, res) => {
 
     fabric_handler.submitTransaction(txnData).then((result) => {
         console.log(result)
-        res.status(200).send("success");
+        res.send("success");
     })
 })
 
