@@ -42,15 +42,15 @@ const fabric_handler = require('./fabric-handler');
 app.get('/', (req, res) => {
     console.log('####......New fabric request');
 
-    // let txnData = {
-    //     fcn : "queryAllCars",
-    //     args:[]
-    // }
+    let txnData = {
+        fcn : "queryAllCars",
+        args:[]
+    }
 
-    // fabric_handler.submitTransaction(txnData).then((result) => {
-    //     console.log(result)
-    //     res.status(200).send(JSON.stringify(result.toString));
-    // })
+    fabric_handler.submitTransaction(txnData).then((result) => {
+        console.log(result)
+        res.status(200).send(JSON.stringify(result.toString));
+    })
 
     res.status(200).send("Fabric DApp is Running");
 })
