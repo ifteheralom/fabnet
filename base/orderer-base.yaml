@@ -4,6 +4,7 @@ services:
   orderer-base:
     image: hyperledger/fabric-orderer
     environment:
+      - GODEBUG=netdns=go
       - ORDERER_GENERAL_LOGLEVEL=debug
       - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
       - ORDERER_GENERAL_GENESISMETHOD=file
